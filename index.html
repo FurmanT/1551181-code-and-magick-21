@@ -62,7 +62,7 @@
   <div class="demo"></div>
 
   <div class="setup-open">
-    <img src="img/user-1.jpg" class="setup-open-icon">
+    <img src="img/user-1.jpg" class="setup-open-icon" tabindex="0">
   </div>
 </header>
 
@@ -70,7 +70,9 @@
   <form class="setup-wizard-form"
         method="post"
         enctype="multipart/form-data"
-        autocomplete="off">
+        autocomplete="off"
+        action="https://21.javascript.pages.academy/code-and-magick"
+  >
 
     <div class="setup-title">
       <div class="setup-user">
@@ -80,12 +82,12 @@
         </div>
         <label>
           <input type="text" name="username"
-                 maxlength="25" required
-                 class="setup-user-name" value="Синий Пендальф"/>
+                 class="setup-user-name" value="Синий Пендальф"
+                 minlength="2" maxlength="25" required tabindex="0"/>
         </label>
       </div>
 
-      <span class="setup-close">&times;</span>
+      <span class="setup-close" tabindex="0">&times;</span>
     </div>
 
 
@@ -154,7 +156,7 @@
         <div class="setup-similar-list"><!--Список похожих персонажей--></div>
       </div>
 
-      <button class="button setup-submit">Сохранить</button>
+      <button class="button setup-submit" tabindex="0">Сохранить</button>
     </div>
   </form>
 </div>

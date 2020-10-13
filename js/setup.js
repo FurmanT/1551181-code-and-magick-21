@@ -5,6 +5,19 @@ const arrSurname = [`да Марья`, `Верон`, `Мирабелла`, `Ва
 const arrCoatColor = [`rgb(101, 137, 164)`, `rgb(241, 43, 107)`, `rgb(146, 100, 161)`, `rgb(56, 159, 117)`, `rgb(215, 210, 55)`, `rgb(0, 0, 0)`];
 const arrEyesColor = [`black`, `red`, `blue`, `yellow`, `green`];
 const COUNT_WIZARD = 4;
+const userDialog = document.querySelector(`.setup`);
+const setupOpen = document.querySelector('.setup-open');
+const setupClose = userDialog.querySelector('.setup-close');
+const coatColor = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
+const eyesColor = ['black', 'red', 'blue', 'yellow', 'green '];
+const fireballColor = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
+const setupWizard = document.querySelector('.setup-wizard');
+const wizardCoat = setupWizard.querySelector('.wizard-coat');
+const wizardEyes = setupWizard.querySelector('.wizard-eyes');
+const elementFireball = userDialog.querySelector('.setup-fireball-wrap');
+const inputFireballColor = elementFireball.querySelector('input');
+const inputCoatColor = userDialog.querySelector("input[name='coat-color']");
+const inputEyesColor = userDialog.querySelector("input[name='eyes-color']");
 
 let getRandomNumber = function (max) {
   return Math.floor(Math.random() * max);
@@ -23,9 +36,6 @@ let arrWizard = [];
 for (let i = 1; i <= COUNT_WIZARD; i++) {
   arrWizard.push(createWizard());
 }
-
-let userDialog = document.querySelector(`.setup`);
-userDialog.classList.remove(`hidden`);
 
 let similarListElement = userDialog.querySelector(`.setup-similar-list`);
 
@@ -50,3 +60,70 @@ let createFragmentSetup = function () {
 };
 similarListElement.appendChild(createFragmentSetup());
 userDialog.querySelector(`.setup-similar`).classList.remove(`hidden`);
+
+const onPopupEscPress = function (evt) {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    if (document.activeElement.className !== "setup-user-name") {
+      closePopup();
+    }
+  }
+};
+
+const fillCoatWizard = function () {
+  let randomNumColor = getRandomNumber(coatColor.length);
+  let color = coatColor[randomNumColor];
+  wizardCoat.style.fill = color;
+  inputCoatColor.value = color;
+};
+
+const fillEyesWizard = function () {
+  let randomNumColor = getRandomNumber(eyesColor.length);
+  let color = eyesColor[randomNumColor];
+  wizardEyes.style.fill = color;
+  inputEyesColor.value = color;
+};
+
+const fillFireballWizard = function () {
+  let randomNumColor = getRandomNumber(fireballColor.length);
+  let color = fireballColor[randomNumColor];
+  inputFireballColor.value = color;
+  elementFireball.style.background = color;
+};
+
+const openPopup = function () {
+  userDialog.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+  wizardCoat.addEventListener('click', fillCoatWizard);
+  wizardEyes.addEventListener('click', fillEyesWizard);
+  elementFireball.addEventListener('click', fillFireballWizard);
+};
+
+const closePopup = function () {
+  userDialog.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+  wizardCoat.removeEventListener('click', fillCoatWizard);
+  wizardEyes.removeEventListener('click', fillEyesWizard);
+  elementFireball.removeEventListener('click', fillFireballWizard);
+};
+
+setupOpen.addEventListener('click', function () {
+  openPopup();
+});
+
+setupOpen.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    openPopup();
+  }
+});
+
+setupClose.addEventListener('click', function () {
+  closePopup();
+});
+
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    closePopup();
+  }
+});
+
